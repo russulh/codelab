@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title></title>
+
+      <script src="https://unpkg.com/vue@2.4.2"></script>
+
+      <style media="screen">
+         .green{
+            background: #2ECC71;
+            border:1px solid #2ECC71;
+            border-radius: 5px;
+         }
+
+         .red{
+            background: #C0392B;
+            border:1px solid #C0392B;
+            border-radius: 5px;
+         }
+      </style>
+
+   </head>
+   <body>
+
+      <div id="root">
+         <input type="text" v-model="msg" id="id1" value="" placeholder="id 1">
+         <input type="text" v-model="msg" id="id2" value="" placeholder="id 1">
+         {{msg}}
+
+         <ul>
+            <li v-for="(name, index) in names">index = {{index}} - value = {{name}} <button type="button" name="button" @click="deleteName(index)">Delete this item</button></li>
+         </ul>
+
+         <input type="text" name="" value="12345" placeholder="enter name" id="inp" v-model="input" @keyup.13="addNewName">
+         <button type="button" name="button" v-on:click="addNewName" id="save" :disabled="disabled">Add with vuejs</button>
+         <button type="button" name="button" onclick="AddName()">Add with js</button>
+
+         <ul>
+            <li v-for="n in limit">{{n}}</li>
+         </ul>
+
+         <h2>all tasks</h2>
+         <ul>
+            <li v-for="task in tasks">
+               {{task.info}}
+               <span v-if="task.finish">✅</span>
+               <span v-else>❌</span>
+            </li>
+         </ul>
+
+         <h2>complated</h2>
+         <ul>
+            <li v-for="task in tasks" v-if="task.finish">{{task.info}} <button type="button" name="button" @click="task.finish = false" :class="{red}">notcomplate</button></li>
+         </ul>
+
+         <h2>not complated</h2>
+         <ul>
+            <li v-for="task in tasks" v-if="!task.finish">{{task.info}} <button type="button" name="button" @click="task.finish = true" :class="{green}">complate</button></li>
+         </ul>
+      </div>
+
+      <script>
+
+         var app = new Vue({
+            el: "#root",
+            data:{
+               msg:"1234567",
+               names:["C","H","I","K","U"],
+               n:1,
+               limit:7,
+               input:"",
+               tasks:[
+                  {
+                     "info"  :  "go",
+                     "finish" :  true
+                  },
+                  {
+                     "info"  :  "run",
+                     "finish" :  false
+                  },
+                  {
+                     "info"  :  "sleep",
+                     "finish" :  true
+                  },
+                  {
+                     "info"  :  "jump",
+                     "finish" :  false
+                  }
+               ],
+               red   :  true,
+               green :  true,
+               disabled :  true,
+            },
+            methods: {
+               addNewName:function () {
+                  // alert(this.input);
+                  if(this.input === ''){
+                     alert("please, enter something");
+                  }
+                  else{
+                     this.names.push(this.input);
+                     this.input  =  '';
+                  }
+               },
+               deleteName:function (index) {
+                  // this.names.pop();
+                  this.names.splice(index, 1);
+               }
+            }
+            // created: function() {
+            //    console.log("hh");
+            // },
+
+         });
+
+         // if i want to use function outside of vue instance
+         function AddName() {
+            var entered_name  = document.getElementById("inp");
+            app.names.push(entered_name.value);
+            document.getElementById("inp").value   =  "";
+         }
+
+      </script>
+   </body>
+</html>

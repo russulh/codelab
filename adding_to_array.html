@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title></title>
+      <script src="https://unpkg.com/vue@2.4.2"></script>
+   </head>
+   <body>
+      <div id="root">
+         <ul>
+            <li v-for="(name, index) in names">index = {{index}} - value = {{name}}</li>
+         </ul>
+
+         <input type="text" value="12345" placeholder="enter name" id="inp" v-model="input" @keyup.13="addNewName">
+         <button type="button" v-on:click="addNewName">Add Vai Vuejs</button>
+         <button type="button" onclick="AddName()">Add Via JS</button>
+
+      </div>
+
+      <script>
+
+         var app = new Vue({
+            el: "#root",
+            data:{
+               names:["B","o","o","!"],
+            },
+            methods: {
+               addNewName:function () {
+                  // alert(this.input);
+                  if(this.input === ''){
+                     alert("please, enter something");
+                  }
+                  else{
+                     this.names.push(this.input);
+                     this.input  =  '';
+                  }
+               },
+            },
+            // created: function() {
+            //    console.log("hh");
+            // },
+         });
+
+         // if i want to use function outside of vue instance
+         function AddName() {
+            var entered_name  = document.getElementById("inp");
+            app.names.push(entered_name.value);
+            entered_name.value   =  '';
+         }
+      </script>
+   </body>
+</html>

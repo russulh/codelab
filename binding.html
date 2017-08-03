@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title></title>
+      <script src="https://unpkg.com/vue@2.4.2"></script>
+
+      <style media="screen">
+         .green{
+            background: #2ECC71;
+            border:1px solid #2ECC71;
+            border-radius: 5px;
+         }
+
+         .red{
+            background: #C0392B;
+            border:1px solid #C0392B;
+            border-radius: 5px;
+         }
+      </style>
+   </head>
+   <body>
+      <div id="root">
+         <button type="button" name="button" :disabled="disabled">save</button>
+         <button type="button" name="button" :class="{red}">not complate</button>
+         <button type="button" name="button" :class="{green}">complate</button>
+      </div>
+
+      <script>
+
+         var app = new Vue({
+            el: "#root",
+            data:{
+               disabled :  true,
+               red      :  true,
+               green    :  true,
+            }
+         });
+      </script>
+   </body>
+</html>
